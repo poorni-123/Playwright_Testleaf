@@ -1,0 +1,25 @@
+import test, { expect } from "@playwright/test";
+
+test("Locator and Assertion assignment-1",async({page})=>{
+    await page.goto("http://leaftaps.com/opentaps/control/main")
+    await page.fill("#username","DemoCSR2")
+    await page.fill("#password","crmsfa")
+    await page.locator(".decorativeSubmit").click()
+    await page.locator("#label").click()
+    await page.locator("//a[text()='Leads']").click()
+    await page.locator("//a[text()='Create Lead']").click()
+    await page.fill("#createLeadForm_companyName","CTS")
+    await page.fill("#createLeadForm_firstName","Poornima")
+    await page.fill("#createLeadForm_lastName","S")
+    await page.fill("#createLeadForm_personalTitle","Mrs.")
+    await page.fill("#createLeadForm_generalProfTitle","Associate")
+    await page.fill("#createLeadForm_annualRevenue","1000000")
+    await page.fill("#createLeadForm_departmentName","IT")
+    await page.fill("#createLeadForm_primaryPhoneNumber","9876543210")
+    await page.locator(".smallSubmit").click()
+    await expect.soft(page.locator("#viewLead_companyName_sp")).toContainText("CTS")
+    await expect.soft(page.locator("#viewLead_firstName_sp")).toHaveText("Poornima")
+    await expect (page.locator("#viewLead_lastName_sp")).toHaveText("S")
+    await expect(page.locator("//a[text()='Status']").first()).toBeVisible()
+    
+})
